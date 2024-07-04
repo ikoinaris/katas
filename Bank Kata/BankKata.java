@@ -1,15 +1,21 @@
 import katas.bank.actions.CustomerActions;
 import katas.bank.actions.EmployeeActions;
 
-import java.io.Console;
+import java.io.*;
 
 public class BankKata {
     private static void selectAction() {
-        //Console console = System.console();
-        int action = Integer.parseInt(System.console().readLine("Select 1 if you are an employee or 2 if you are a customer: "));
-        switch (action) {
-            case 1 -> new EmployeeActions().selectAction();
-            case 2 -> new CustomerActions().selectAction();
+        try {
+            System.out.println("Select 1 if you are an employee or 2 if you are a customer: ");
+            InputStreamReader streamReader = new InputStreamReader(System.in);
+            BufferedReader bufferedReader = new BufferedReader(streamReader);
+            int action = Integer.parseInt(bufferedReader.readLine());
+            switch (action) {
+                case 1 -> new EmployeeActions().selectAction();
+                case 2 -> new CustomerActions().selectAction();
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 
