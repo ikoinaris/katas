@@ -5,8 +5,7 @@ import java.io.*;
 
 public class BankKata {
 
-    static InputStreamReader streamReader = new InputStreamReader(System.in);
-    static BufferedReader bufferedReader = new BufferedReader(streamReader);
+    static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
     private static void selectAction() {
         try {
@@ -15,6 +14,7 @@ public class BankKata {
             switch (action) {
                 case 1 -> new EmployeeActions().selectAction();
                 case 2 -> new CustomerActions().selectAction();
+                default -> System.exit(0);
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();

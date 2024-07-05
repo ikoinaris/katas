@@ -13,8 +13,18 @@ import java.util.Random;
 public class EmployeeActions extends Actions {
 
     private Map<Integer, Customer> customers = new HashMap<>();
-    private InputStreamReader streamReader = new InputStreamReader(System.in);
-    private BufferedReader bufferedReader = new BufferedReader(streamReader);
+    private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+    public void showAllCustomers() {
+        if (customers.isEmpty()) {
+            System.out.println("There are no saved accounts. Create one to continue");
+        } else {
+            customers.forEach((id, customer) -> { System.out.println(String.format("Customer Id: %d Customer : %s %s Created at: %s",
+                    id, customer.getFirstName(), customer.getLastName(), customer.getCreatedAt()));
+            });
+        }
+        selectAction();
+    }
 
     public void createCustomer() {
         try {
@@ -49,17 +59,6 @@ public class EmployeeActions extends Actions {
         selectAction();
     }
 
-    public void showAllCustomers() {
-        if (customers.isEmpty()) {
-            System.out.println("There are no saved accounts.");
-        } else {
-            customers.forEach((id, customer) -> { System.out.println(String.format("Customer Id: %d Customer : %s %s Created at: %s",
-                    id, customer.getFirstName(), customer.getLastName(), customer.getCreatedAt()));
-            });
-        }
-        selectAction();
-    }
-
     @Override
     public void selectAction() {
         try {
@@ -69,7 +68,7 @@ public class EmployeeActions extends Actions {
                 case 1 -> showAllCustomers();
                 case 2 -> createCustomer();
                 case 3 -> deleteCustomer();
-                default -> System.exit(0);
+                case 4 -> System.exit(0);
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -79,9 +78,5 @@ public class EmployeeActions extends Actions {
 
     private int generateCustomerId() {
         return 1000 + new Random().nextInt(9000);
-    }
-
-    public Map<Integer, Customer> getCustomers() {
-        return customers;
     }
 }
