@@ -5,8 +5,8 @@ import java.io.*;
 
 public class BankKata {
 
-    private static InputStreamReader streamReader = new InputStreamReader(System.in);
-    private static BufferedReader bufferedReader = new BufferedReader(streamReader);
+    static InputStreamReader streamReader = new InputStreamReader(System.in);
+    static BufferedReader bufferedReader = new BufferedReader(streamReader);
 
     private static void selectAction() {
         try {

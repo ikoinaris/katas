@@ -28,9 +28,11 @@ public class EmployeeActions extends Actions {
             }
             var newCustomer = new Customer(customerFirstName, customerLastName, LocalDate.now());
             customers.put(customerId, newCustomer);
+            System.out.println("Customer created successfully");
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+        selectAction();
     }
 
     public void deleteCustomer() {
@@ -44,15 +46,16 @@ public class EmployeeActions extends Actions {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-
+        selectAction();
     }
 
     public void showAllCustomers() {
         if (customers.isEmpty()) {
             System.out.println("There are no saved accounts.");
         } else {
-            customers.values().forEach(System.out::println);
+            customers.entrySet().forEach(customer -> System.out.println(customer.getValue()));
         }
+        selectAction();
     }
 
     @Override
@@ -75,5 +78,9 @@ public class EmployeeActions extends Actions {
     private int generateCustomerId() {
         Random random = new Random();
         return 1000 + random.nextInt(9000);
+    }
+
+    public Map<Integer, Customer> getCustomers() {
+        return customers;
     }
 }
