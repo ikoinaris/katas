@@ -4,10 +4,13 @@ import java.time.LocalDate;
 
 public class Customer extends Model {
 
-    private LocalDate createdAt;
+    private final Integer pin;
 
-    public Customer(String firstName, String lastName, LocalDate dateOfCreation) {
+    private final LocalDate createdAt;
+
+    public Customer(String firstName, String lastName, int customerPin, LocalDate dateOfCreation) {
         super(firstName, lastName);
+        pin = customerPin;
         createdAt = dateOfCreation;
     }
 

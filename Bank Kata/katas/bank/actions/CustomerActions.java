@@ -55,7 +55,27 @@ public class CustomerActions extends Actions{
         selectAction();
     }
 
-    @Override
+    public void login() {
+        try {
+            System.out.println("Enter your id to login: ");
+            var id = Integer.parseInt(bufferedReader.readLine());
+            while (!customers.containsKey(id)) {
+                System.out.println("Wrong customer id, try again: ");
+                id = Integer.parseInt(bufferedReader.readLine());
+            }
+            var failedAttempts = 0;
+            while(failedAttempts < 3) {
+                System.out.println(String.format("Login failed. Try again. Attempts remaining: %d", failedAttempts));
+                failedAttempts++;
+            }
+            if(customers.containsKey(id)) {
+                System.out.println(String.format("Login successful welcome %s", customers.get(id).getFirstName()));
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
     public void selectAction() {
         try {
             System.out.println("1 - Deposit 2 - Withdraw 3 - Show all transactions 4 - Exit: ");

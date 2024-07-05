@@ -6,13 +6,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class EmployeeActions extends Actions {
 
-    private Map<Integer, Customer> customers = new HashMap<>();
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
     public void showAllCustomers() {
@@ -32,12 +29,13 @@ public class EmployeeActions extends Actions {
             var customerFirstName = bufferedReader.readLine();
             System.out.println("Enter new customer's last name: ");
             var customerLastName = bufferedReader.readLine();
-            var customerId = generateCustomerId();
-            while (customers.containsKey(customerId)) {
-                customerId = generateCustomerId();
+            var newCustomerId = generateCustomerId();
+            while (customers.containsKey(newCustomerId)) {
+                newCustomerId = generateCustomerId();
             }
-            var newCustomer = new Customer(customerFirstName, customerLastName, LocalDate.now());
-            customers.put(customerId, newCustomer);
+            var newCustomerPin = generateCustomerPIN();
+            var newCustomer = new Customer(customerFirstName, customerLastName, newCustomerPin, LocalDate.now());
+            customers.put(newCustomerId, newCustomer);
             System.out.println("Customer created successfully");
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -59,7 +57,6 @@ public class EmployeeActions extends Actions {
         selectAction();
     }
 
-    @Override
     public void selectAction() {
         try {
             System.out.println("1 - Show all customers 2 - Create new customer 3 - Delete Customer 4 - Exit: ");
@@ -76,7 +73,15 @@ public class EmployeeActions extends Actions {
 
     }
 
+    public void login() {
+        // TODO: login for employee
+    }
+
     private int generateCustomerId() {
         return 1000 + new Random().nextInt(9000);
+    }
+
+    private int generateCustomerPIN() {
+        return 10000 + new Random().nextInt(99999);
     }
 }
