@@ -1,7 +1,6 @@
 package katas.bank.model;
 
-public sealed class Person
-    permits Customer, Employee{
+public abstract class Person implements Role {
 
     private String firstName;
     private String lastName;
@@ -11,6 +10,8 @@ public sealed class Person
         lastName = surname;
     }
 
+    public Person() {}
+
     public String getFirstName() {
         return firstName;
     }
@@ -18,4 +19,7 @@ public sealed class Person
     public String getLastName() {
         return lastName;
     }
+
+    @Override
+    public abstract void performAction();
 }

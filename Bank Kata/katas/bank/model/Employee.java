@@ -1,8 +1,15 @@
 package katas.bank.model;
 
-public final class Employee extends Person {
+import katas.bank.interfaces.EmployeeActions;
 
-    public Employee(String firstName, String lastName) {
-        super(firstName, lastName);
+public class Employee extends Person {
+
+    private EmployeeActions employeeActions;
+
+    public Employee(EmployeeActions employeeActions) {
+        this.employeeActions = employeeActions;
     }
+
+    @Override
+    public void performAction() { employeeActions.selectAction(); }
 }

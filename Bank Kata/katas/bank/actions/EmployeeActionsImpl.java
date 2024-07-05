@@ -1,5 +1,6 @@
 package katas.bank.actions;
 
+import katas.bank.interfaces.EmployeeActions;
 import katas.bank.model.Customer;
 
 import java.io.BufferedReader;
@@ -8,16 +9,17 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.Random;
 
-public class EmployeeActions extends Actions {
+public class EmployeeActionsImpl implements EmployeeActions {
 
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    private boolean backToMainMenu = false;
 
     public void showAllCustomers() {
         if (customers.isEmpty()) {
             System.out.println("There are no saved accounts. Create one to continue");
         } else {
-            customers.forEach((id, customer) -> { System.out.println(String.format("Customer Id: %d Customer : %s %s Created at: %s",
-                    id, customer.getFirstName(), customer.getLastName(), customer.getCreatedAt()));
+            customers.forEach((id, customer) -> { System.out.println(String.format("Customer Id: %d Customer : %s %s Created at: %s, PIN: %d",
+                    id, customer.getFirstName(), customer.getLastName(), customer.getCreatedAt(), customer.getPin()));
             });
         }
         selectAction();
@@ -58,17 +60,20 @@ public class EmployeeActions extends Actions {
     }
 
     public void selectAction() {
-        try {
-            System.out.println("1 - Show all customers 2 - Create new customer 3 - Delete Customer 4 - Exit: ");
-            var action = Integer.parseInt(bufferedReader.readLine());
-            switch (action) {
-                case 1 -> showAllCustomers();
-                case 2 -> createCustomer();
-                case 3 -> deleteCustomer();
-                case 4 -> System.exit(0);
+        while (!backToMainMenu) {
+            try {
+                System.out.println("1 - Show all customers 2 - Create new customer 3 - Delete Customer 4 - Back o Main Menu: ");
+                var action = Integer.parseInt(bufferedReader.readLine());
+                switch (action) {
+                    case 1 -> showAllCustomers();
+                    case 2 -> createCustomer();
+                    case 3 -> deleteCustomer();
+                    case 4 -> backToMainMenu = true;
+                    default -> System.out.println("Invalid action. Try again: ");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
         }
     }
 

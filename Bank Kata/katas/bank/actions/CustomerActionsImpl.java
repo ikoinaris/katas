@@ -1,5 +1,7 @@
 package katas.bank.actions;
 
+import katas.bank.interfaces.CustomerActions;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,11 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CustomerActions extends Actions{
+public class CustomerActionsImpl implements CustomerActions {
 
     private Integer balance;
     private List<String[]> transactions = new ArrayList<>();
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    private boolean backToMainMenu = false;
 
     public void deposit() {
         System.out.println("Enter amount to deposit: ");
@@ -58,14 +61,16 @@ public class CustomerActions extends Actions{
     public void login() {
         var customerId = -1;
         var MAX_ATTEMPTS = 3;
+        var attempt = 0;
         try {
             // First Step : Customer ID
-            for(int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+            while(attempt < MAX_ATTEMPTS) {
                 System.out.println(String.format("Please enter your customer id (remaining attempts: %d): ", MAX_ATTEMPTS - attempt));
                 customerId = Integer.parseInt(bufferedReader.readLine());
                 if(customers.containsKey(customerId)) {
                     break;
                 } else {
+                    attempt++;
                     System.out.println("Customer id not found");
                     if(attempt == MAX_ATTEMPTS) {
                         System.out.println("Login attempt failed, exiting system...");
@@ -74,14 +79,16 @@ public class CustomerActions extends Actions{
                 }
             }
             // Second Step: Customer PIN
-            for(int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+            while(attempt < MAX_ATTEMPTS) {
                 System.out.println(String.format("Please enter your PIN (remaining attempts: %d): ", MAX_ATTEMPTS - attempt));
                 var pinGiven = Integer.parseInt(bufferedReader.readLine());
                 var customer = customers.get(customerId);
                 if(customer.getPin().equals(pinGiven)) {
                     System.out.println(String.format("Login successful welcome %s", customer.getFirstName()));
+                    selectAction();
                     return;
                 } else {
+                    attempt++;
                     if(attempt == MAX_ATTEMPTS) {
                         System.out.println("Login attempt failed, exiting system...");
                         System.exit(0);
@@ -94,17 +101,20 @@ public class CustomerActions extends Actions{
     }
 
     public void selectAction() {
-        try {
-            System.out.println("1 - Deposit 2 - Withdraw 3 - Show all transactions 4 - Exit: ");
-            var action = Integer.parseInt(bufferedReader.readLine());
-            switch (action) {
-                case 1 -> deposit();
-                case 2 -> withdraw();
-                case 3 -> showAllTransactions();
-                case 4 -> System.exit(0);
+        while(!backToMainMenu) {
+            try {
+                System.out.println("1 - Deposit 2 - Withdraw 3 - Show all transactions 4 - Back o Main Menu: ");
+                var action = Integer.parseInt(bufferedReader.readLine());
+                switch (action) {
+                    case 1 -> deposit();
+                    case 2 -> withdraw();
+                    case 3 -> showAllTransactions();
+                    case 4 -> backToMainMenu = true;
+                    default -> System.out.println("Invalid action. Try again: ");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
         }
     }
 }

@@ -1,17 +1,25 @@
 package katas.bank.model;
 
+import katas.bank.interfaces.CustomerActions;
+
 import java.time.LocalDate;
 
-public final class Customer extends Person {
+public class Customer extends Person {
 
-    private final Integer pin;
+    private CustomerActions customerActions;
 
-    private final LocalDate createdAt;
+    private Integer pin;
+
+    private LocalDate createdAt;
+
+    public Customer(CustomerActions customerActions) {
+        this.customerActions = customerActions;
+    }
 
     public Customer(String firstName, String lastName, int customerPin, LocalDate dateOfCreation) {
         super(firstName, lastName);
-        pin = customerPin;
-        createdAt = dateOfCreation;
+        this.pin = customerPin;
+        this.createdAt = dateOfCreation;
     }
 
     public LocalDate getCreatedAt() {
@@ -20,5 +28,10 @@ public final class Customer extends Person {
 
     public Integer getPin() {
         return pin;
+    }
+
+    @Override
+    public void performAction() {
+        customerActions.login();
     }
 }
