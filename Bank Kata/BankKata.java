@@ -4,11 +4,13 @@ import katas.bank.actions.EmployeeActions;
 import java.io.*;
 
 public class BankKata {
+
+    private static InputStreamReader streamReader = new InputStreamReader(System.in);
+    private static BufferedReader bufferedReader = new BufferedReader(streamReader);
+
     private static void selectAction() {
         try {
             System.out.println("Select 1 if you are an employee or 2 if you are a customer: ");
-            InputStreamReader streamReader = new InputStreamReader(System.in);
-            BufferedReader bufferedReader = new BufferedReader(streamReader);
             int action = Integer.parseInt(bufferedReader.readLine());
             switch (action) {
                 case 1 -> new EmployeeActions().selectAction();
