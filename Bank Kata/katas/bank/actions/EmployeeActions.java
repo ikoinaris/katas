@@ -53,7 +53,9 @@ public class EmployeeActions extends Actions {
         if (customers.isEmpty()) {
             System.out.println("There are no saved accounts.");
         } else {
-            customers.forEach((id, customer) -> { System.out.println(String.format("Customer Id: %d Customer : %s", id, customer.toString())); });
+            customers.forEach((id, customer) -> { System.out.println(String.format("Customer Id: %d Customer : %s %s Created at: %s",
+                    id, customer.getFirstName(), customer.getLastName(), customer.getCreatedAt()));
+            });
         }
         selectAction();
     }
@@ -76,8 +78,7 @@ public class EmployeeActions extends Actions {
     }
 
     private int generateCustomerId() {
-        Random random = new Random();
-        return 1000 + random.nextInt(9000);
+        return 1000 + new Random().nextInt(9000);
     }
 
     public Map<Integer, Customer> getCustomers() {
