@@ -53,7 +53,7 @@ public class EmployeeActions extends Actions {
         if (customers.isEmpty()) {
             System.out.println("There are no saved accounts.");
         } else {
-            customers.entrySet().forEach(customer -> System.out.println(customer.getValue()));
+            customers.forEach((id, customer) -> { System.out.println(String.format("Customer Id: %d Customer : %s", id, customer.toString())); });
         }
         selectAction();
     }

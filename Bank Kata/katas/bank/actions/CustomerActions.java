@@ -69,7 +69,7 @@ public class CustomerActions extends Actions{
                     withdraw();
                 }
                 case 3 -> showAllTransactions();
-                default -> System.exit(0);
+                case 4 -> System.exit(0);
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
