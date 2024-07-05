@@ -13,7 +13,7 @@ public class BankKata {
             int action = Integer.parseInt(bufferedReader.readLine());
             switch (action) {
                 case 1 -> new EmployeeActions().selectAction();
-                case 2 -> new CustomerActions().login();
+                case 2 -> new CustomerActions().selectAction();
                 default -> System.exit(0);
             }
         } catch (IOException ioException) {

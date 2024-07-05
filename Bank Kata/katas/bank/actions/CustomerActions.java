@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CustomerActions extends Actions{
 
-    private int balance;
+    private Integer balance;
     private List<String[]> transactions = new ArrayList<>();
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -56,20 +56,37 @@ public class CustomerActions extends Actions{
     }
 
     public void login() {
+        var customerId = -1;
+        var MAX_ATTEMPTS = 3;
         try {
-            System.out.println("Enter your id to login: ");
-            var id = Integer.parseInt(bufferedReader.readLine());
-            while (!customers.containsKey(id)) {
-                System.out.println("Wrong customer id, try again: ");
-                id = Integer.parseInt(bufferedReader.readLine());
+            // First Step : Customer ID
+            for(int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+                System.out.println(String.format("Please enter your customer id (remaining attempts: %d): ", MAX_ATTEMPTS - attempt));
+                customerId = Integer.parseInt(bufferedReader.readLine());
+                if(customers.containsKey(customerId)) {
+                    break;
+                } else {
+                    System.out.println("Customer id not found");
+                    if(attempt == MAX_ATTEMPTS) {
+                        System.out.println("Login attempt failed, exiting system...");
+                        System.exit(0);
+                    }
+                }
             }
-            var failedAttempts = 0;
-            while(failedAttempts < 3) {
-                System.out.println(String.format("Login failed. Try again. Attempts remaining: %d", failedAttempts));
-                failedAttempts++;
-            }
-            if(customers.containsKey(id)) {
-                System.out.println(String.format("Login successful welcome %s", customers.get(id).getFirstName()));
+            // Second Step: Customer PIN
+            for(int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+                System.out.println(String.format("Please enter your PIN (remaining attempts: %d): ", MAX_ATTEMPTS - attempt));
+                var pinGiven = Integer.parseInt(bufferedReader.readLine());
+                var customer = customers.get(customerId);
+                if(customer.getPin().equals(pinGiven)) {
+                    System.out.println(String.format("Login successful welcome %s", customer.getFirstName()));
+                    return;
+                } else {
+                    if(attempt == MAX_ATTEMPTS) {
+                        System.out.println("Login attempt failed, exiting system...");
+                        System.exit(0);
+                    }
+                }
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();

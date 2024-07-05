@@ -2,7 +2,7 @@ package katas.bank.model;
 
 import java.time.LocalDate;
 
-public class Customer extends Model {
+public final class Customer extends Person {
 
     private final Integer pin;
 
@@ -16,5 +16,9 @@ public class Customer extends Model {
 
     public LocalDate getCreatedAt() {
         return createdAt;
+    }
+
+    public Integer getPin() {
+        return pin;
     }
 }

@@ -1,11 +1,12 @@
 package katas.bank.model;
 
-public class Model {
+public sealed class Person
+    permits Customer, Employee{
 
     private String firstName;
     private String lastName;
 
-    public Model (String name, String surname) {
+    public Person(String name, String surname) {
         firstName = name;
         lastName = surname;
     }

@@ -70,7 +70,6 @@ public class EmployeeActions extends Actions {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-
     }
 
     public void login() {
