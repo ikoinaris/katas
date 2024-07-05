@@ -2,7 +2,6 @@ import katas.bank.actions.CustomerActionsImpl;
 import katas.bank.actions.EmployeeActionsImpl;
 import katas.bank.model.Customer;
 import katas.bank.model.Employee;
-import katas.bank.model.Person;
 
 import java.io.*;
 
