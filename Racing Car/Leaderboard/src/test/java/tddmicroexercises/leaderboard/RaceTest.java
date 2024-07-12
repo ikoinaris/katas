@@ -1,34 +1,21 @@
 package tddmicroexercises.leaderboard;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import lombok.var;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import tddmicroexercises.leaderboard.interfaces.Competitor;
 
 public class RaceTest {
 
-    @InjectMocks
-    private Race race;
-
-    @Mock
-    private Competitor competitor;
-
-    @BeforeEach
-    public void setUp() {
-
-    }
-
     @Test
-    public void givenValidCompetitor_whenGetPointCalled_thenReturnCompetitorPoints() {
-        // Given
+    public void isShouldCalculateDriverPoints() {
+        // setup
 
-        // When
-        var result = race.getPoints(competitor);
+        // act
 
-        // Then
+        // verify
+        assertEquals(25, TestData.race1.getPoints(TestData.driver1));
+        assertEquals(18, TestData.race1.getPoints(TestData.driver2));
+        assertEquals(15, TestData.race1.getPoints(TestData.driver3));
     }
 
 }

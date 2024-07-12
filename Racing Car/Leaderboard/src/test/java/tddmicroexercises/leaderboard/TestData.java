@@ -1,16 +1,10 @@
 package tddmicroexercises.leaderboard;
 
-import tddmicroexercises.leaderboard.interfaces.Competitor;
-import tddmicroexercises.leaderboard.model.Driver;
-import tddmicroexercises.leaderboard.model.SelfDrivingCar;
-
-import java.util.List;
-
 public class TestData {
 
-    public static Competitor driver1;
-    public static Competitor driver2;
-    public static Competitor driver3;
+    public static Driver driver1;
+    public static Driver driver2;
+    public static Driver driver3;
     public static SelfDrivingCar driver4;
 
     public static Race race1;
@@ -29,7 +23,7 @@ public class TestData {
         driver3 = new Driver("Sebastian Vettel", "DE");
         driver4 = new SelfDrivingCar("1.2", "Acme");
 
-        race1 = new Race("Australian Grand Prix", (Competitor) List.of(driver1, driver2, driver3));
+        race1 = new Race("Australian Grand Prix", driver1, driver2, driver3);
         race2 = new Race("Malaysian Grand Prix", driver3, driver2, driver1);
         race3 = new Race("Chinese Grand Prix", driver2, driver1, driver3);
         race4 = new Race("Fictional Grand Prix 1", driver1, driver2, driver4);

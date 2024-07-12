@@ -117,4 +117,12 @@ public class CustomerActionsImpl implements CustomerActions {
             }
         }
     }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public List<String[]> getTransactions() {
+        return transactions;
+    }
 }

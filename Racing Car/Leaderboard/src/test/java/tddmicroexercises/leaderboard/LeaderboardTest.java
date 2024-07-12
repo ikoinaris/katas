@@ -1,91 +1,92 @@
 package tddmicroexercises.leaderboard;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tddmicroexercises.leaderboard.TestData.driver1;
-import static tddmicroexercises.leaderboard.TestData.driver2;
-import static tddmicroexercises.leaderboard.TestData.driver3;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import lombok.var;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import tddmicroexercises.leaderboard.interfaces.Competitor;
 
 public class LeaderboardTest {
-
-    @Mock
-    private Competitor competitor;
 
     @InjectMocks
     private Leaderboard leaderboard;
 
+    private Driver[] drivers;
+
     @BeforeEach
     public void setUp() {
-        leaderboard = new Leaderboard(createTestRaces());
+        drivers = createDrivers();
     }
 
     @Test
-    void givenResultsMap_whenCallCompetitorRankings_thenReturnResultList() {
-
+    public void givenListOfRaces_whenDriverResultsCalled_thenReturnSumOfDriversPoints() {
+        // Given
+        leaderboard = new Leaderboard(createRaces());
+        // When
+        Map<String, Integer> driverResults = leaderboard.driverResults();
+        // Then
+        assertEquals(5, driverResults.size());
+        assertEquals(100, driverResults.get("Nico Rosberg"));
+        assertEquals(55, driverResults.get("Self Driving Car - Acme (1.2)"));
+        assertEquals(51, driverResults.get("Lewis Hamilton"));
+        assertEquals(48, driverResults.get("Sebastian Vettel"));
+        assertEquals(38, driverResults.get("Self Driving Car - Acme (1.5)"));
     }
 
     @Test
-    void givenRaceList_whenCallCompetitorResults_thenReturnResultsMap() {
-
-    }
-
-    private Race[] createTestRaces() {
-        Competitor[] competitors = new Competitor[] {};
-        var race1 = new Race("Australian Grand Prix", competitors);
-        var race2 = new Race("Monaco Grand Prix", competitors);
-        var race3 = new Race("Dubai Grand Prix", competitors);
-        return new Race[] {race1, race2, race3};
-    }
-
-
-    @Test
-    public void itShouldSumThePoints() {
-        // setup
-
-        // act
-        Map<String, Integer> results = TestData.sampleLeaderboard1.competitorResults();
-
-        // verify
-        assertTrue(results.containsKey("Lewis Hamilton"), "results " + results);
-        assertEquals(18 + 18 + 25, (int) results.get("Lewis Hamilton"));
+    public void givenDriverResultsWithUnevenPoints_whenDriverRankingsCalled_thenReturnResultsList() {
+        // Given
+        leaderboard = new Leaderboard(createRaces());
+        // When
+        List<String> driverRankings = leaderboard.driverRankings();
+        // Then
+        assertEquals(driverRankings.size(), 5);
+        assertEquals("Nico Rosberg", driverRankings.get(0));
+        assertEquals("Self Driving Car - Acme (1.2)", driverRankings.get(1));
+        assertEquals("Lewis Hamilton", driverRankings.get(2));
+        assertEquals("Sebastian Vettel", driverRankings.get(3));
+        assertEquals("Self Driving Car - Acme (1.5)", driverRankings.get(4));
     }
 
     @Test
-    public void isShouldFindTheWinner() {
-        // setup
+    public void givenDriverResultsWithEvenPoints_whenDriverRankingsCalled_thenReturnResultsList() {
+        // Given
+        Race race1 = new Race("Australian Grand Prix", drivers[0], drivers[1], drivers[2], drivers[3]);
+        Race race2 = new Race("Malaysian Grand Prix", drivers[1], drivers[0], drivers[2], drivers[3]);
+        leaderboard = new Leaderboard(race1, race2);
 
-        // act
-        List<String> result = TestData.sampleLeaderboard1.competitorRankings();
+        // When
+        List<String> driverRankings = leaderboard.driverRankings();
 
-        // verify
-        assertEquals("Lewis Hamilton", result.get(0));
+        // Then
+        assertEquals(4, driverRankings.size());
+        assertEquals(Arrays.asList(
+                drivers[0].getName(), drivers[1].getName(), drivers[2].getName(), drivers[3].getName()), driverRankings);
     }
 
-    @Test
-    public void itShouldKeepAllDriversWhenSamePoints() {
-        // setup
-        // bug, drops drivers with same points
-        Race winDriver1 = new Race("Australian Grand Prix", (Competitor) List.of(driver1, driver2, driver3));
-        Race winDriver2 = new Race("Malaysian Grand Prix", (Competitor) List.of(driver2, driver1, driver3));
-        Leaderboard exEquoLeaderBoard = new Leaderboard(winDriver1, winDriver2);
+    private Race[] createRaces() {
+        Race[] races = new Race[]{
+                new Race("Australian Grand Prix", drivers[0], drivers[1], drivers[2], drivers[3], drivers[4]),
+                new Race("Malaysian Grand Prix", drivers[0], drivers[2], drivers[3], drivers[1], drivers[4]),
+                new Race("Chinese Grand Prix", drivers[0], drivers[4], drivers[3], drivers[2], drivers[1]),
+                new Race("Monaco Grand Prix", drivers[0], drivers[1], drivers[3], drivers[4], drivers[2])
+        };
+        return races;
+    }
 
-        // act
-        List<String> rankings = exEquoLeaderBoard.competitorRankings();
-
-        // verify
-        assertEquals(Arrays.asList(driver1.getName(), driver2.getName(), driver3.getName()), rankings);
+    private Driver[] createDrivers() {
+        Driver[] drivers = new Driver[]{
+                new Driver("Nico Rosberg", "DE"),
+                new Driver("Lewis Hamilton", "UK"),
+                new Driver("Sebastian Vettel", "DE"),
+                new SelfDrivingCar("1.2", "Acme"),
+                new SelfDrivingCar("1.5", "Acme")
+        };
+        return drivers;
     }
 
 }

@@ -1,29 +1,49 @@
 package tddmicroexercises.leaderboard;
 
-import lombok.Getter;
-import tddmicroexercises.leaderboard.interfaces.Competitor;
-
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Race {
 
-    private static final Integer[] POINTS = new Integer[]{25, 18, 15};
+    private static final Integer[] POINTS = new Integer[]{25, 18, 15, 10, 5};
+
     private final String name;
-    @Getter
-    private final List<Competitor> results;
+    private final List<Driver> results;
+    private final Map<Driver, String> driverNames;
 
-    public Race(String name, Competitor... results) {
+    public Race(String name, Driver... drivers) {
         this.name = name;
-        this.results = Arrays.asList(results);
+        this.results = Arrays.asList(drivers);
+        this.driverNames = new HashMap<>();
+        for (Driver driver : results) {
+            String driverName = driver.getName();
+            if (driver instanceof SelfDrivingCar) {
+                driverName = "Self Driving Car - " + driver.getCountry() + " (" + ((SelfDrivingCar) driver).getAlgorithmVersion() + ")";
+            }
+            this.driverNames.put(driver, driverName);
+        }
     }
 
-    public int getPosition(Competitor competitor) {
-        return this.results.indexOf(competitor);
+    public int position(Driver driver) {
+        return this.results.indexOf(driver);
     }
 
-    public int getPoints(Competitor competitor) {
-        int position = getPosition(competitor);
-        return position >= 0 && position < POINTS.length ? POINTS[position] : 0;
+    public int getPoints(Driver driver) {
+        return Race.POINTS[position(driver)];
+    }
+
+    public List<Driver> getResults() {
+        return results;
+    }
+
+    public String getDriverName(Driver driver) {
+        return this.driverNames.get(driver);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
