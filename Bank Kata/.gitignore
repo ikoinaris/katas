@@ -7,5 +7,6 @@
 *.iml
 *.ipr
 out/
+lib/
 
 .gitignore
