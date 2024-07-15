@@ -1,4 +1,4 @@
-package tddmicroexercises.leaderboard;
+package tddmicroexercises.leaderboard.models;
 
 public class SelfDrivingCar extends Driver {
 

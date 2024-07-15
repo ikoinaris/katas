@@ -1,6 +1,6 @@
 package tddmicroexercises.leaderboard.interfaces;
 
-import tddmicroexercises.leaderboard.Race;
+import tddmicroexercises.leaderboard.models.Race;
 
 import java.util.List;
 import java.util.Map;

@@ -1,5 +1,7 @@
 package tddmicroexercises.leaderboard;
 
+import tddmicroexercises.leaderboard.models.SelfDrivingCar;
+
 public class TestData {
 
     public static Driver driver1;

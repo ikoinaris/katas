@@ -9,6 +9,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import tddmicroexercises.leaderboard.models.SelfDrivingCar;
 
 public class LeaderboardTest {
 
