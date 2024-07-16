@@ -14,8 +14,8 @@ public class ResultsCalculatorImpl implements ResultsCalculator {
     public Map<String, Integer> calculateResults(List<Race> races) {
         Map<String, Integer> results = new HashMap<>();
         for (Race race : races) {
-            for (Map.Entry<Driver, Integer> entry : race.getResults().entrySet()) {
-                String driverName = entry.getKey().getName();
+            for (Map.Entry<Driver, Integer> entry : race.results().entrySet()) {
+                String driverName = entry.getKey().name();
                 int points = entry.getValue();
                 results.merge(driverName, points, Integer::sum);
             }
