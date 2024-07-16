@@ -1,15 +1,8 @@
 package tddmicroexercises.leaderboard.models;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import tddmicroexercises.leaderboard.interfaces.Competitor;
 
-@RequiredArgsConstructor
-public class Driver implements Competitor {
-
-    @Getter
-    private final String name;
-    private final String country;
+public record Driver(String name, String country) implements Competitor {
 
     @Override
     public String getDescription() {
