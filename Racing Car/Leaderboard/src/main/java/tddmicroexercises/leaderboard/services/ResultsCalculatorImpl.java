@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PointsResultsCalculator implements ResultsCalculator {
+public class ResultsCalculatorImpl implements ResultsCalculator {
 
     @Override
     public Map<String, Integer> calculateResults(List<Race> races) {

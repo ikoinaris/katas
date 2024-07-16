@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PointsRankingsCalculator implements RankingsCalculator {
+public class RankingsCalculatorImpl implements RankingsCalculator {
 
     @Override
     public List<String> calculateRankings(Map<String, Integer> results) {
