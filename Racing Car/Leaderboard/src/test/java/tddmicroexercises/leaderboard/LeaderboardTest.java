@@ -8,10 +8,12 @@ import tddmicroexercises.leaderboard.models.Race;
 import tddmicroexercises.leaderboard.services.RankingsCalculatorImpl;
 import tddmicroexercises.leaderboard.services.ResultsCalculatorImpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -49,5 +51,25 @@ public class LeaderboardTest {
         Map<String, Integer> results = leaderboard.driverResults();
         //Then
         verify(resultsCalculator).calculateResults(races);
+    }
+
+    @Test
+    public void givenMapOfResults_whenDriverRankingsCalled_thenReturnListOfDriverNames() {
+        Map<String, Integer> mockResults = new HashMap<>(){
+            {
+                put(TestData.competitor1.getDescription(), 75);
+                put(TestData.competitor2.getDescription(), 50);
+            }
+        };
+        List<String> expectedRankings =
+                List.of(TestData.competitor1.getDescription(), TestData.competitor2.getDescription());
+        when(rankingsCalculator.calculateRankings(mockResults)).thenReturn(expectedRankings);
+
+        // When
+        List<String> results = leaderboard.driverRankings();
+
+        // Then
+        verify(rankingsCalculator).calculateRankings(mockResults);
+        assertEquals(2, results.size());
     }
 }
