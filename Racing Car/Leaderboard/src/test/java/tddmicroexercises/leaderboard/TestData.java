@@ -1,39 +1,87 @@
 package tddmicroexercises.leaderboard;
 
+import org.junit.jupiter.api.BeforeEach;
+import tddmicroexercises.leaderboard.interfaces.Competitor;
+import tddmicroexercises.leaderboard.models.Driver;
+import tddmicroexercises.leaderboard.models.Race;
 import tddmicroexercises.leaderboard.models.SelfDrivingCar;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TestData {
 
-    public static Driver driver1;
-    public static Driver driver2;
-    public static Driver driver3;
-    public static SelfDrivingCar driver4;
+    private static Competitor competitor1;
+    private static Competitor competitor2;
+    private static Competitor competitor3;
+    private static Competitor competitor4;
 
-    public static Race race1;
-    public static Race race2;
-    public static Race race3;
-    public static Race race4;
-    public static Race race5;
-    public static Race race6;
+    private static Race race1;
+    private static Race race2;
+    private static Race race3;
+    private static Race race4;
 
-    public static Leaderboard sampleLeaderboard1;
-    public static Leaderboard sampleLeaderboard2;
+    public static List<Race> createListOfRaces() {
+        List<Race> races = new ArrayList<>();
+        initializeCompetitors();
+        race1 = new Race(new HashMap<>() {
+            {
+                put(competitor1, 25);
+                put(competitor2, 18);
+                put(competitor3, 15);
+                put(competitor4, 12);
+            }
+        });
+        race2 = new Race(new HashMap<>() {
+            {
+                put(competitor1, 25);
+                put(competitor3, 18);
+                put(competitor2, 15);
+                put(competitor4, 12);
+            }
+        });
+        race3 = new Race(new HashMap<>() {
+            {
+                put(competitor2, 25);
+                put(competitor1, 18);
+                put(competitor3, 15);
+                put(competitor4, 12);
+            }
+        });
+        race4 = new Race(new HashMap<>() {
+            {
+                put(competitor1, 25);
+                put(competitor4, 18);
+                put(competitor3, 15);
+                put(competitor2, 12);
+            }
+        });
+        races.add(race1);
+        races.add(race2);
+        races.add(race3);
+        races.add(race4);
+        return races;
+    }
 
-    static {
-        driver1 = new Driver("Nico Rosberg", "DE");
-        driver2 = new Driver("Lewis Hamilton", "UK");
-        driver3 = new Driver("Sebastian Vettel", "DE");
-        driver4 = new SelfDrivingCar("1.2", "Acme");
+    public static Map<String, Integer> createMapOfResults() {
+        initializeCompetitors();
+        Map<String, Integer> results = new HashMap<>(){
+            {
+                put(competitor1.getDescription(), 70);
+                put(competitor2.getDescription(), 54);
+                put(competitor3.getDescription(), 93);
+                put(competitor4.getDescription(), 63);
+            }
+        };
+        return results;
+    }
 
-        race1 = new Race("Australian Grand Prix", driver1, driver2, driver3);
-        race2 = new Race("Malaysian Grand Prix", driver3, driver2, driver1);
-        race3 = new Race("Chinese Grand Prix", driver2, driver1, driver3);
-        race4 = new Race("Fictional Grand Prix 1", driver1, driver2, driver4);
-        race5 = new Race("Fictional Grand Prix 2", driver4, driver2, driver1);
-        driver4.setAlgorithmVersion("1.3");
-        race6 = new Race("Fictional Grand Prix 3", driver2, driver1, driver4);
-
-        sampleLeaderboard1 = new Leaderboard(race1, race2, race3);
-        sampleLeaderboard2 = new Leaderboard(race4, race5, race6);
+    private static void initializeCompetitors() {
+        competitor1 = new Driver("Nico Rosberg", "DE");
+        competitor2 = new Driver("Lewis Hamilton", "UK");
+        competitor3 = new SelfDrivingCar("1.2", "Acme");
+        competitor4 = new SelfDrivingCar("1.5", "Acme");
     }
 }

@@ -1,5 +1,6 @@
 package tddmicroexercises.leaderboard.services;
 
+import tddmicroexercises.leaderboard.interfaces.Competitor;
 import tddmicroexercises.leaderboard.models.Driver;
 import tddmicroexercises.leaderboard.interfaces.ResultsCalculator;
 import tddmicroexercises.leaderboard.models.Race;
@@ -14,8 +15,8 @@ public class ResultsCalculatorImpl implements ResultsCalculator {
     public Map<String, Integer> calculateResults(List<Race> races) {
         Map<String, Integer> results = new HashMap<>();
         for (Race race : races) {
-            for (Map.Entry<Driver, Integer> entry : race.results().entrySet()) {
-                String driverName = entry.getKey().name();
+            for (Map.Entry<Competitor, Integer> entry : race.results().entrySet()) {
+                String driverName = entry.getKey().getDescription();
                 int points = entry.getValue();
                 results.merge(driverName, points, Integer::sum);
             }

@@ -30,6 +30,10 @@ class RankingsCalculatorImplTest {
         List<String> rankings = rankingsCalculator.calculateRankings(results);
 
         // Then
-        assertEquals(5, rankings.size());
+        assertEquals(4, rankings.size());
+        assertEquals(rankings.get(0), "(1.2 - Acme)");
+        assertEquals(rankings.get(1), "(Nico Rosberg - DE)");
+        assertEquals(rankings.get(2), "(1.5 - Acme)");
+        assertEquals(rankings.get(3), "(Lewis Hamilton - UK)");
     }
 }
