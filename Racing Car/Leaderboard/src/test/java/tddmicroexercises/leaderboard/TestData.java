@@ -1,6 +1,5 @@
 package tddmicroexercises.leaderboard;
 
-import org.junit.jupiter.api.BeforeEach;
 import tddmicroexercises.leaderboard.interfaces.Competitor;
 import tddmicroexercises.leaderboard.models.Driver;
 import tddmicroexercises.leaderboard.models.Race;
@@ -22,11 +21,6 @@ public class TestData {
     public static Race race2;
     public static Race race3;
     public static Race race4;
-
-    @BeforeEach
-    public void setUp() {
-        initializeCompetitors();
-    }
 
     public static List<Race> createListOfRaces() {
         List<Race> races = new ArrayList<>();
