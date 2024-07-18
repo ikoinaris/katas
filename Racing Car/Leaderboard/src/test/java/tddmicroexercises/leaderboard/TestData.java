@@ -13,15 +13,15 @@ import java.util.Map;
 
 public class TestData {
 
-    private static Competitor competitor1;
-    private static Competitor competitor2;
-    private static Competitor competitor3;
-    private static Competitor competitor4;
+    public static Competitor competitor1;
+    public static Competitor competitor2;
+    public static Competitor competitor3;
+    public static Competitor competitor4;
 
-    private static Race race1;
-    private static Race race2;
-    private static Race race3;
-    private static Race race4;
+    public static Race race1;
+    public static Race race2;
+    public static Race race3;
+    public static Race race4;
 
     public static List<Race> createListOfRaces() {
         List<Race> races = new ArrayList<>();
