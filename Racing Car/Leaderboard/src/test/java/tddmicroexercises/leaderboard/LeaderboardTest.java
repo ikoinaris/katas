@@ -12,16 +12,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class LeaderboardTest {
 
-    @Mock
     private RankingsCalculatorImpl rankingsCalculator;
 
-    @Mock
     private ResultsCalculatorImpl resultsCalculator;
 
     @InjectMocks
@@ -33,8 +31,8 @@ public class LeaderboardTest {
     public void setUp() {
         races = TestData.createListOfRaces();
         leaderboard = new Leaderboard(races.toArray(new Race[races.size()]));
-        rankingsCalculator = new RankingsCalculatorImpl();
-        resultsCalculator = new ResultsCalculatorImpl();
+        rankingsCalculator = mock(RankingsCalculatorImpl.class);
+        resultsCalculator = mock(ResultsCalculatorImpl.class);
     }
 
     @Test
@@ -46,7 +44,7 @@ public class LeaderboardTest {
                 put(TestData.competitor2.getDescription(), 50);
             }
         };
-        when(resultsCalculator.calculateResults(anyList())).thenReturn(expectedResults);
+        when(resultsCalculator.calculateResults(races)).thenReturn(expectedResults);
         //When
         Map<String, Integer> results = leaderboard.driverResults();
         //Then
