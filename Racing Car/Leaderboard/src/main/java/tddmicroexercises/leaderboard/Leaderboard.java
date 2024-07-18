@@ -19,9 +19,7 @@ public class Leaderboard {
         this.races = Arrays.asList(races);
     }
 
-    public Map<String, Integer> driverResults() {
-        return resultsCalculator.calculateResults(races);
-    }
+    public Map<String, Integer> driverResults() { return resultsCalculator.calculateResults(races); }
 
     public List<String> driverRankings() {
         return rankingsCalculator.calculateRankings(driverResults());
