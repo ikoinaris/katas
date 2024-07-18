@@ -23,6 +23,11 @@ public class TestData {
     public static Race race3;
     public static Race race4;
 
+    @BeforeEach
+    public void setUp() {
+        initializeCompetitors();
+    }
+
     public static List<Race> createListOfRaces() {
         List<Race> races = new ArrayList<>();
         initializeCompetitors();
@@ -66,7 +71,6 @@ public class TestData {
     }
 
     public static Map<String, Integer> createMapOfResults() {
-        initializeCompetitors();
         Map<String, Integer> results = new HashMap<>(){
             {
                 put(competitor1.getDescription(), 70);

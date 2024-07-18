@@ -15,10 +15,6 @@ public class Leaderboard {
     private ResultsCalculatorImpl resultsCalculator;
     private List<Race> races;
 
-    public Leaderboard(Race... races) {
-        this.races = Arrays.asList(races);
-    }
-
     public Map<String, Integer> driverResults() { return resultsCalculator.calculateResults(races); }
 
     public List<String> driverRankings() {
