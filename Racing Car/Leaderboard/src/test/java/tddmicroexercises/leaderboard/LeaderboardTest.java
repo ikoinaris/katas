@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class LeaderboardTest {
@@ -34,20 +33,11 @@ public class LeaderboardTest {
 
     @BeforeEach
     public void setUp() {
-        races = TestData.createListOfRaces();
         leaderboard = new Leaderboard(rankingsCalculator, resultsCalculator, races);
     }
 
     @Test
     public void givenListOfRaces_whenDriverResultsCalled_thenReturnMapOfResults() {
-        //Given
-        Map<String, Integer> expectedResults = new HashMap<>(){
-            {
-                put(TestData.competitor1.getDescription(), 75);
-                put(TestData.competitor2.getDescription(), 50);
-            }
-        };
-        when(resultsCalculator.calculateResults(races)).thenReturn(expectedResults);
         //When
         Map<String, Integer> results = leaderboard.driverResults();
         //Then
