@@ -65,6 +65,7 @@ public class TestData {
     }
 
     public static Map<String, Integer> createMapOfResults() {
+        initializeCompetitors();
         Map<String, Integer> results = new HashMap<>(){
             {
                 put(competitor1.getDescription(), 70);
