@@ -11,8 +11,12 @@ public class AfricanParrot extends Parrot {
     }
 
     @Override
-    public double getSpeed() { return Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts); }
+    public double getSpeed() {
+        return Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts);
+    }
 
     @Override
-    public String getCry() { return "Sqaark!"; }
+    public String getCry() {
+        return "Sqaark!";
+    }
 }
