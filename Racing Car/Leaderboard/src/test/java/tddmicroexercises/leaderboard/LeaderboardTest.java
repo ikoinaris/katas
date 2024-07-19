@@ -1,6 +1,5 @@
 package tddmicroexercises.leaderboard;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,11 +29,6 @@ public class LeaderboardTest {
 
     @Mock
     private List<Race> races;
-
-    @BeforeEach
-    public void setUp() {
-        leaderboard = new Leaderboard(rankingsCalculator, resultsCalculator, races);
-    }
 
     @Test
     public void givenListOfRaces_whenDriverResultsCalled_thenReturnMapOfResults() {
