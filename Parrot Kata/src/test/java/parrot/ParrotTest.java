@@ -16,6 +16,13 @@ public class ParrotTest {
             Parrot parrot = new Parrot(ParrotTypeEnum.EUROPEAN, 0, 0, false);
             assertEquals(12.0, parrot.getSpeed(), 0.0);
         }
+
+        @Test
+        public void getSpeedOfEuropeanParrot_With_One_Coconut() {
+            Parrot parrot = new Parrot(ParrotTypeEnum.EUROPEAN, 1, 0, false);
+            assertEquals(12.0, parrot.getSpeed(), 0.0);
+        }
+
         @Test
         public void getSpeedOfAfricanParrot_With_One_Coconut() {
             Parrot parrot = new Parrot(ParrotTypeEnum.AFRICAN, 1, 0, false);
@@ -50,6 +57,12 @@ public class ParrotTest {
         public void getSpeedNorwegianBlueParrot_not_nailed_high_voltage() {
             Parrot parrot = new Parrot(ParrotTypeEnum.NORWEGIAN_BLUE, 0, 4, false);
             assertEquals(24.0, parrot.getSpeed(), 0.0);
+        }
+
+        @Test
+        public void getSpeedNorwegianBlueParrot_not_nailed_low_voltage() {
+            Parrot parrot = new Parrot(ParrotTypeEnum.NORWEGIAN_BLUE, 0, 1, false);
+            assertEquals(12.0, parrot.getSpeed(), 0.0);
         }
     }
 
