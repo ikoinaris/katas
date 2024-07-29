@@ -1,16 +1,32 @@
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
+import javax.swing.text.Position;
+
+import static org.junit.Assert.assertEquals;
 
 public class RoverTest {
+
+    @Mock
+    private Command command;
 
     @Nested
     class MoveSuccess {
 
         @Test
         public void givenRoversPosition_WhenMoveForwardCalled_ThenIncreaseY() {
+
             // Given
+            var positionX = 5;
+            var positionY = 5;
+
             // When
+            Position newPosition = command.moveForward(positionX, positionY);
+
             // Then
+            assertEquals(newPosition.getX(), 5);
+            assertEquals(newPosition.getY(), 6);
         }
 
         @Test
