@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import javax.swing.text.Position;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -10,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class RoverTest {
 
     @Mock
-    private MoveCommand moveCommand;
+    private MoveCommands moveCommand;
 
     @Nested
     class MoveSuccess {
@@ -25,8 +24,8 @@ public class RoverTest {
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 5);
-            assertEquals(expectedPosition.getY(), 6);
+            assertEquals(expectedPosition.positionX(), 5);
+            assertEquals(expectedPosition.positionY(), 6);
         }
 
         @Test
@@ -39,8 +38,8 @@ public class RoverTest {
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 5);
-            assertEquals(expectedPosition.getY(), 4);
+            assertEquals(expectedPosition.positionX(), 5);
+            assertEquals(expectedPosition.positionY(), 4);
         }
 
         @Test
@@ -53,8 +52,8 @@ public class RoverTest {
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 6);
-            assertEquals(expectedPosition.getY(), 5);
+            assertEquals(expectedPosition.positionX(), 6);
+            assertEquals(expectedPosition.positionY(), 5);
         }
 
         @Test
@@ -67,8 +66,8 @@ public class RoverTest {
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 4);
-            assertEquals(expectedPosition.getY(), 5);
+            assertEquals(expectedPosition.positionX(), 4);
+            assertEquals(expectedPosition.positionY(), 5);
         }
 
         @Test
@@ -81,8 +80,8 @@ public class RoverTest {
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 6);
-            assertEquals(expectedPosition.getY(), 5);
+            assertEquals(expectedPosition.positionX(), 6);
+            assertEquals(expectedPosition.positionY(), 5);
 
         }
 
