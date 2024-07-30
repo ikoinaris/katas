@@ -1,15 +1,16 @@
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 public class RoverTest {
 
-    @Mock
-    private MoveCommands moveCommand;
+    @InjectMocks
+    private MoveCommandsImpl moveCommand;
 
     @Nested
     class MoveSuccess {
@@ -18,7 +19,7 @@ public class RoverTest {
         public void givenRoversPosition_WhenMoveForwardCalled_ThenIncreaseY() {
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("N");
+            List<DirectionEnum> commands = List.of(DirectionEnum.NORTH);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
@@ -32,7 +33,7 @@ public class RoverTest {
         public void givenRoversPosition_WhenMoveBackwardsCalled_ThenDecreaseY() {
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("S");
+            List<DirectionEnum> commands = List.of(DirectionEnum.SOUTH);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
@@ -46,7 +47,7 @@ public class RoverTest {
         public void givenRoversPosition_WhenTurnRightCalled_ThenIncreaseX() {
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("E");
+            List<DirectionEnum> commands = List.of(DirectionEnum.EAST);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
@@ -60,7 +61,7 @@ public class RoverTest {
         public void givenRoversPosition_WhenTurnLeftCalled_ThenDecreaseX() {
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("W");
+            List<DirectionEnum> commands = List.of(DirectionEnum.WEST);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
@@ -74,14 +75,16 @@ public class RoverTest {
         public void givenRoversPosition_WhenSequenceOfCommandsReceived_thenReturnFinalPosition() {
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("N", "E", "S", "E", "N", "W", "S");
+            List<DirectionEnum> commands = List.of(DirectionEnum.NORTH,
+                    DirectionEnum.EAST, DirectionEnum.SOUTH, DirectionEnum.EAST, DirectionEnum.NORTH,
+                    DirectionEnum.WEST, DirectionEnum.SOUTH);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.positionX(), 6);
-            assertEquals(expectedPosition.positionY(), 5);
+            assertEquals(expectedPosition.positionX(), 5);
+            assertEquals(expectedPosition.positionY(), 4);
 
         }
 
@@ -95,14 +98,15 @@ public class RoverTest {
 
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("E", "S", "N", "W");
+            List<DirectionEnum> commands = List.of(DirectionEnum.EAST, DirectionEnum.SOUTH,
+                    DirectionEnum.NORTH, DirectionEnum.WEST);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 6);
-            assertEquals(expectedPosition.getY(), 5);
+            assertEquals(expectedPosition.positionX(), 6);
+            assertEquals(expectedPosition.positionY(), 5);
         }
 
         @Test
@@ -110,14 +114,15 @@ public class RoverTest {
 
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("E", "N", "S", "W");
+            List<DirectionEnum> commands = List.of(DirectionEnum.EAST, DirectionEnum.NORTH,
+                    DirectionEnum.SOUTH, DirectionEnum.WEST);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 6);
-            assertEquals(expectedPosition.getY(), 5);
+            assertEquals(expectedPosition.positionX(), 6);
+            assertEquals(expectedPosition.positionY(), 5);
         }
 
         @Test
@@ -125,14 +130,15 @@ public class RoverTest {
 
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("N", "E", "W", "S");
+            List<DirectionEnum> commands = List.of(DirectionEnum.NORTH, DirectionEnum.EAST,
+                    DirectionEnum.WEST, DirectionEnum.SOUTH);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 6);
-            assertEquals(expectedPosition.getY(), 5);
+            assertEquals(expectedPosition.positionX(), 6);
+            assertEquals(expectedPosition.positionY(), 5);
         }
 
         @Test
@@ -140,14 +146,15 @@ public class RoverTest {
 
             // Given
             var position = new Position(5,5);
-            List<String> commands = List.of("N", "W", "E", "S");
+            List<DirectionEnum> commands = List.of(DirectionEnum.NORTH, DirectionEnum.WEST,
+                    DirectionEnum.EAST, DirectionEnum.SOUTH);
 
             // When
             var expectedPosition = moveCommand.move(position, commands);
 
             // Then
-            assertEquals(expectedPosition.getX(), 6);
-            assertEquals(expectedPosition.getY(), 5);
+            assertEquals(expectedPosition.positionX(), 6);
+            assertEquals(expectedPosition.positionY(), 5);
         }
 
     }
