@@ -14,12 +14,6 @@ public class MarsRover {
     private int planetHeight;
     private int planetWidth;
 
-    public MarsRover(int positionX, int positionY, char direction) {
-        this.positionX = positionX;
-        this.positionY = positionY;
-        this.direction = direction;
-    }
-
     public void moveCommands(char[] commands) {
         for (char command : commands) {
             switch (command) {
@@ -42,24 +36,35 @@ public class MarsRover {
     public void moveForward() {
         switch (direction) {
             case 'N':
-                if(!obstacleDetected(positionX, positionY + 1) && !planetEdgeReached(positionX, positionY + 1)) {
+                if(!obstacleDetected(positionX, positionY + 1)) {
                     positionY++;
+                    if ( positionY == planetHeight ) {
+                        direction = 'S';
+                    }
                 }
                 break;
             case 'S':
-                if(!obstacleDetected(positionX, positionY - 1) && !planetEdgeReached(positionX, positionY - 1)) {
+                if(!obstacleDetected(positionX, positionY - 1)) {
                     positionY--;
+                    if (positionY == -planetHeight) {
+                        direction = 'N';
+                    }
                 }
                 break;
             case 'E':
-                if(!obstacleDetected(positionX + 1, positionY) && !planetEdgeReached(positionX + 1, positionY)) {
+                if(!obstacleDetected(positionX + 1, positionY)) {
                     positionX++;
+                    if (positionX == planetWidth) {
+                        direction = 'W';
+                    }
                 }
-                positionX = positionX + 1;
                 break;
             case 'W':
-                if(!obstacleDetected(positionX - 1, positionY) && !planetEdgeReached(positionX - 1, positionY)) {
+                if(!obstacleDetected(positionX - 1, positionY)) {
                     positionX--;
+                    if (positionX == -planetWidth) {
+                        direction = 'E';
+                    }
                 }
                 break;
         }
@@ -68,22 +73,34 @@ public class MarsRover {
     public void moveBackwards() {
         switch (direction) {
             case 'N':
-                if(!obstacleDetected(positionX, positionY - 1) && !planetEdgeReached(positionX, positionY - 1)) {
+                if(!obstacleDetected(positionX, positionY - 1)) {
                     positionY--;
+                    if (positionY == -planetHeight) {
+                        direction = 'S';
+                    }
                 }
                 break;
             case 'S':
-                if(!obstacleDetected(positionX, positionY + 1) && !planetEdgeReached(positionX, positionY + 1)) {
+                if(!obstacleDetected(positionX, positionY + 1)) {
                     positionY++;
+                    if (positionY == planetHeight) {
+                        direction = 'N';
+                    }
                 }
                 break;
             case 'E':
-                if(!obstacleDetected(positionX - 1 , positionY) && !planetEdgeReached(positionX - 1, positionY)) {
+                if(!obstacleDetected(positionX - 1, positionY)) {
                     positionX--;
+                    if (positionX == - planetWidth) {
+                        direction = 'W';
+                    }
                 }
             case 'W':
-                if(!obstacleDetected(positionX + 1 , positionY) && !planetEdgeReached(positionX + 1, positionY)) {
+                if(!obstacleDetected(positionX + 1 , positionY)) {
                     positionX++;
+                    if (positionX == planetWidth) {
+                        direction = 'E';
+                    }
                 }
                 break;
         }
@@ -130,9 +147,5 @@ public class MarsRover {
             }
         }
         return false;
-    }
-
-    private boolean planetEdgeReached(int posX, int posY) {
-        return planetHeight > posY && planetWidth > posY;
     }
 }
