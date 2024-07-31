@@ -42,16 +42,25 @@ public class MarsRover {
     public void moveForward() {
         switch (direction) {
             case 'N':
-                positionY = positionY + 1;
+                if(!obstacleDetected(positionX, positionY + 1) && !planetEdgeReached(positionX, positionY + 1)) {
+                    positionY++;
+                }
                 break;
             case 'S':
-                positionY = positionY - 1;
+                if(!obstacleDetected(positionX, positionY - 1) && !planetEdgeReached(positionX, positionY - 1)) {
+                    positionY--;
+                }
                 break;
             case 'E':
+                if(!obstacleDetected(positionX + 1, positionY) && !planetEdgeReached(positionX + 1, positionY)) {
+                    positionX++;
+                }
                 positionX = positionX + 1;
                 break;
             case 'W':
-                positionX = positionX - 1;
+                if(!obstacleDetected(positionX - 1, positionY) && !planetEdgeReached(positionX - 1, positionY)) {
+                    positionX--;
+                }
                 break;
         }
     }
@@ -59,16 +68,23 @@ public class MarsRover {
     public void moveBackwards() {
         switch (direction) {
             case 'N':
-                positionY = positionY - 1;
+                if(!obstacleDetected(positionX, positionY - 1) && !planetEdgeReached(positionX, positionY - 1)) {
+                    positionY--;
+                }
                 break;
             case 'S':
-                positionY = positionY + 1;
+                if(!obstacleDetected(positionX, positionY + 1) && !planetEdgeReached(positionX, positionY + 1)) {
+                    positionY++;
+                }
                 break;
             case 'E':
-                positionX = positionX - 1;
-                break;
+                if(!obstacleDetected(positionX - 1 , positionY) && !planetEdgeReached(positionX - 1, positionY)) {
+                    positionX--;
+                }
             case 'W':
-                positionX = positionX + 1;
+                if(!obstacleDetected(positionX + 1 , positionY) && !planetEdgeReached(positionX + 1, positionY)) {
+                    positionX++;
+                }
                 break;
         }
     }
@@ -114,5 +130,9 @@ public class MarsRover {
             }
         }
         return false;
+    }
+
+    private boolean planetEdgeReached(int posX, int posY) {
+        return planetHeight > posY && planetWidth > posY;
     }
 }
