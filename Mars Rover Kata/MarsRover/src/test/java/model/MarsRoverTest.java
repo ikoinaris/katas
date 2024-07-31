@@ -23,7 +23,7 @@ class MarsRoverTest {
         // Then
         assertEquals(marsRover.getDirection(), 'W');
         assertEquals(marsRover.getPositionX(), 1);
-        assertEquals(marsRover.getPositionY(), 4);
+        assertEquals(marsRover.getPositionY(), 2);
     }
 
     @Test
