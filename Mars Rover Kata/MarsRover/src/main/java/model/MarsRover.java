@@ -10,9 +10,6 @@ public class MarsRover {
     private int positionX;
     private int positionY;
     private char direction;
-    private int[][] obstaclePositions;
-    private int planetHeight;
-    private int planetWidth;
 
     public void moveCommands(char[] commands) {
         for (char command : commands) {
@@ -36,36 +33,16 @@ public class MarsRover {
     public void moveForward() {
         switch (direction) {
             case 'N':
-                if(!obstacleDetected(positionX, positionY + 1)) {
-                    positionY++;
-                    if ( positionY == planetHeight ) {
-                        direction = 'S';
-                    }
-                }
+                positionY++;
                 break;
             case 'S':
-                if(!obstacleDetected(positionX, positionY - 1)) {
-                    positionY--;
-                    if (positionY == -planetHeight) {
-                        direction = 'N';
-                    }
-                }
+                positionY--;
                 break;
             case 'E':
-                if(!obstacleDetected(positionX + 1, positionY)) {
-                    positionX++;
-                    if (positionX == planetWidth) {
-                        direction = 'W';
-                    }
-                }
+                positionX++;
                 break;
             case 'W':
-                if(!obstacleDetected(positionX - 1, positionY)) {
-                    positionX--;
-                    if (positionX == -planetWidth) {
-                        direction = 'E';
-                    }
-                }
+                positionX--;
                 break;
         }
     }
@@ -73,35 +50,15 @@ public class MarsRover {
     public void moveBackwards() {
         switch (direction) {
             case 'N':
-                if(!obstacleDetected(positionX, positionY - 1)) {
-                    positionY--;
-                    if (positionY == -planetHeight) {
-                        direction = 'S';
-                    }
-                }
+                positionY--;
                 break;
             case 'S':
-                if(!obstacleDetected(positionX, positionY + 1)) {
-                    positionY++;
-                    if (positionY == planetHeight) {
-                        direction = 'N';
-                    }
-                }
+                positionY++;
                 break;
             case 'E':
-                if(!obstacleDetected(positionX - 1, positionY)) {
-                    positionX--;
-                    if (positionX == - planetWidth) {
-                        direction = 'W';
-                    }
-                }
+                positionX--;
             case 'W':
-                if(!obstacleDetected(positionX + 1 , positionY)) {
-                    positionX++;
-                    if (positionX == planetWidth) {
-                        direction = 'E';
-                    }
-                }
+                positionX++;
                 break;
         }
     }
@@ -138,14 +95,5 @@ public class MarsRover {
                 direction = 'N';
                 break;
         }
-    }
-
-    private boolean obstacleDetected(int posX, int posY) {
-        for (int[] obstaclePosition : obstaclePositions) {
-            if (obstaclePosition[0] == posX && obstaclePosition[1] == posY) {
-                return true;
-            }
-        }
-        return false;
     }
 }

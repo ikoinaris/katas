@@ -11,50 +11,49 @@ class MarsRoverTest {
     private MarsRover marsRover;
 
     @Test
-    void givenCharArrayOfCommands_whenMoveCommandsCalled_thenPositionAndDirectionUpdated() {
+    void givenCharArrayOfCommands_whenMoveForwardCalled_thenPositionUpdated() {
 
         //Given
-        marsRover = new MarsRover(1,2, 'N', new int[][]{}, 20, 20);
-        var commands = new char[]{'F', 'L', 'F', 'R', 'F', 'L', 'B'};
+        marsRover = new MarsRover(1,1, 'N');
 
         // When
-        marsRover.moveCommands(commands);
+        marsRover.moveForward();
 
         // Then
-        assertEquals('W', marsRover.getDirection());
         assertEquals(1, marsRover.getPositionX());
-        assertEquals(4, marsRover.getPositionY());
+        assertEquals(2, marsRover.getPositionY());
     }
 
     @Test
-    void givenCharArrayOfCommands_WhenObstacleDetected_thenMoveToPreviousPosition() {
+    void givenCharArrayOfCommands_whenMoveBackwardCalled_thenPositionUpdated() {
 
         //Given
-        marsRover = new MarsRover(5,5, 'N', new int[][]{{5, 6}}, 20, 20);
-        var commands = new char[]{'F', 'L', 'F', 'R', 'F', 'L', 'B'};
+        marsRover = new MarsRover(1,2, 'N');
 
         // When
-        marsRover.moveCommands(commands);
+        marsRover.moveBackwards();
 
         // Then
-        assertEquals(4, marsRover.getPositionX());
-        assertEquals(6, marsRover.getPositionY());
-
+        assertEquals(1, marsRover.getPositionX());
+        assertEquals(1, marsRover.getPositionY());
     }
 
     @Test
-    void givenCharArrayOfCommands_whenAreasEdgesReached_thenDirectionChanged() {
+    void givenCharArrayOfCommands_whenMovingAndTurning_thenPositionAndDirectionUpdated() {
 
         //Given
-        marsRover = new MarsRover(1,4, 'N', new int[][]{}, 5, 5);
-        var commands = new char[]{'F', 'L', 'F', 'R', 'F', 'L', 'B'};
+        marsRover = new MarsRover(1,1, 'N');
 
         // When
-        marsRover.moveCommands(commands);
+        marsRover.moveForward();
+        marsRover.turnLeft();
+        marsRover.moveForward();
+        marsRover.turnRight();
+        marsRover.moveForward();
 
         // Then
-        assertEquals('E', marsRover.getDirection());
-        assertEquals(2, marsRover.getPositionX());
-        assertEquals(4, marsRover.getPositionY());
+        assertEquals('N', marsRover.getDirection());
+        assertEquals(0, marsRover.getPositionX());
+        assertEquals(3, marsRover.getPositionY());
     }
 }
