@@ -50,9 +50,10 @@ class MarsRoverTest {
         marsRover.moveForward();
         marsRover.turnRight();
         marsRover.moveForward();
+        marsRover.turnLeft();
 
         // Then
-        assertEquals('N', marsRover.getDirection());
+        assertEquals('W', marsRover.getDirection());
         assertEquals(0, marsRover.getPositionX());
         assertEquals(3, marsRover.getPositionY());
     }
